@@ -1,0 +1,35 @@
+<aura:component controller="ShuffleEngineController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="songs" type="String[]"/>
+	<aura:attribute name="songsCopy" type="String[]"/>
+	<aura:attribute name="songsPlaying" type="String[]"/>
+	<aura:attribute name="nextSong" type="String"/>
+	<aura:attribute name="isPlaying" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <button class="slds-button slds-button_success" onclick="{!c.doShuffle}">シャッフルして再生</button>
+    <aura:if isTrue="{!v.isPlaying}">
+        <button class="slds-button slds-button_success" onclick="{!c.doNextSong}">次の歌</button>
+        <br/><br/>
+        <div>現在再生中： {!v.nextSong}</div>
+    </aura:if>
+    
+    <br/><br/>
+    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+              <th scope="col">
+                <div class="slds-truncate" title="歌リスト">私の歌リスト</div>
+              </th>
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.songs}" var="song">
+                <tr>
+                  <td data-label="Account Name">
+                    <div class="slds-truncate" title="歌">{!song}</div>
+                  </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>
